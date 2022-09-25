@@ -29,15 +29,15 @@ class PacMan:
     def render(self):
         pass
 
-    # Automatic stepping if no input (direction) given
-    def auto_step(self, prev_action):
-        a, timedOut = timedInput("Choose your next action:\n")
+    # Selecting automatic action if no user input (direction) given
+    def select_action(self, prev_action):
+        user_input, timedOut = timedInput("Choose your next action:\n")
         if timedOut:
-            done_ = env.step(action=prev_action)
+            action = prev_action
         else:
-            done_ = env.step(action=int(a))
-            prev_action = a
-        return prev_action
+            action = int(user_input)
+            prev_action = user_input
+        return prev_action, action
 
 if __name__ == "__main__":
     # Instantiating the environment
@@ -45,10 +45,10 @@ if __name__ == "__main__":
                  max_time_step=100)
     done_ = False
     # First step
-    a = int(input("Choose your first action:\n"))
-    state, reward, done_, info = env.step(action=a)
-    prev_action = a
+    user_input = int(input("Choose your first action:\n"))
+    done = env.step(user_input)
+    prev_action = user_input
     while not done_:
-        done_ = env.auto_step(prev_action)
+        done_ = env.select_action(prev_action)
 
 
