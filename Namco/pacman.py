@@ -10,9 +10,22 @@ class PacMan:
         self.map = np.zeros((map_size, map_size))
         self.x = np.random.randint(0, self.map_size)
         self.y = np.random.randint(0, self.map_size)
+        self.num_of_points = 10
 
     def reset(self):
-        pass
+
+        for i in range(0, self.num_of_points):
+            # Generating random coordinates
+            point_x = np.random.randint(0,self.map_size)
+            point_y = np.random.randint(0, self.map_size)
+
+            #Checking and changing the value of the randomly selected string
+            if self.map[point_x][point_y] == 0:
+                self.map[point_x][point_y] = 2
+            else:
+                self.num_of_points+=1
+
+
 
     def step(self, action):
         done = False
